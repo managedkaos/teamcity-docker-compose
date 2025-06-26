@@ -35,6 +35,7 @@ the current directory contains the file @docker-run.sh with commands for running
 
 - Handled the prompt very well in one pass.
 - Added the files as requested and then went above and beyond.
+- Created the `./volumes` directory with sub-dirs to match the compose configuration
 - The compose configuration was very complete with good naming conventions
 - I was already thinking that I would need to update the projects `.gitignore` file to disregard the volume files.
 - Documentation was added in a markdown file
@@ -65,3 +66,9 @@ the current directory contains the file @docker-run.sh with commands for running
       - TEAMCITY_DB_USER=teamcity
       - TEAMCITY_DB_PASSWORD=teamcity
   ```
+
+## Goose
+
+- Handled the prompt on the first pass
+- Didn't attempt to create the `./volumes` directory but the compose configuration include the paths.
+

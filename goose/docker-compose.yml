@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  teamcity:
+    image: jetbrains/teamcity-server
+    container_name: teamcity-server-instance
+    ports:
+      - "8111:8111"
+    volumes:
+      - ./volumes/data:/data/teamcity_server/datadir
+      - ./volumes/logs:/opt/teamcity/logs
+    networks:
+      - teamcity-network
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: teamcity
+      POSTGRES_PASSWORD: teamcity
+      POSTGRES_DB: teamcity
+    networks:
+      - teamcity-network
+
+networks:
+  teamcity-network:
+    driver: bridge
