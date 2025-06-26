@@ -1,0 +1,43 @@
+services:
+  teamcity-server:
+    image: jetbrains/teamcity-server
+    container_name: teamcity-server-instance
+    ports:
+      - "8111:8111"
+    volumes:
+      - ./volumes/teamcity-data:/data/teamcity_server/datadir
+      - ./volumes/teamcity-logs:/opt/teamcity/logs
+    environment:
+      - TEAMCITY_DB_TYPE=postgresql
+      - TEAMCITY_DB_HOST=postgres
+      - TEAMCITY_DB_PORT=5432
+      - TEAMCITY_DB_NAME=teamcity
+      - TEAMCITY_DB_USER=teamcity
+      - TEAMCITY_DB_PASSWORD=teamcity
+    depends_on:
+      - postgres
+    networks:
+      - teamcity-network
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15
+    container_name: teamcity-postgres
+    environment:
+      - POSTGRES_DB=teamcity
+      - POSTGRES_USER=teamcity
+      - POSTGRES_PASSWORD=teamcity
+    volumes:
+      - ./volumes/postgres-data:/var/lib/postgresql/data
+    networks:
+      - teamcity-network
+    restart: unless-stopped
+
+networks:
+  teamcity-network:
+    driver: bridge
+
+volumes:
+  teamcity-data:
+  teamcity-logs:
+  postgres-data:
