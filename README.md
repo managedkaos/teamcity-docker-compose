@@ -1,4 +1,4 @@
-# teamcity-docker-compose
+# AI Agent Comparison: Generate a Docker Compose Environment for Teamcity
 
 Testing out AI agents and how they implement a docker compose project.
 
@@ -18,8 +18,13 @@ docker run --name teamcity-server-instance \
 
 ## Prompt
 
+The current directory contains the file `@docker-run.sh` with commands for running a teamcity image.  Use the run commands to create a docker compose configuration.  For volumes, add directories in the CWD under `./volumes`.  In the compose configuration, add a postgresql database on the same network as the teamcity container.  use `teamcity` for the default username, password, and database name.  Add a Makefile to the project with targets for `up` to start the compose stack in detached mode; `down` to stop the compose stack; `logs` to view the stacks logs; and `x_nuke` to run `down` and then remove all images and volumes.
+
+> [!TIP]
+> Use the following field to easily copy the prompt.
+
 ```text
-the current directory contains the file @docker-run.sh with commands for running a teamcity image.  use the run commands to create a docker compose configuration.  for volumes, add directories in the CWD under `./volumes`.  In the compose configuration, add a postgresql database on the same network as the teamcity container.  use `teamcity` for the default username, password, and database name.  Add a Makefile to the project with targets for `up` to start the compose stack in detached mode; `down` to stop the compose stack; `logs` to view the stacks logs; and `x_nuke` to run `down` and then remove all images and volumes.
+The current directory contains the file @docker-run.sh with commands for running a teamcity image.  Use the run commands to create a docker compose configuration.  For volumes, add directories in the CWD under `./volumes`.  In the compose configuration, add a postgresql database on the same network as the teamcity container.  use `teamcity` for the default username, password, and database name.  Add a Makefile to the project with targets for `up` to start the compose stack in detached mode; `down` to stop the compose stack; `logs` to view the stacks logs; and `x_nuke` to run `down` and then remove all images and volumes.
 ```
 
 ## Google Gemini CLI
