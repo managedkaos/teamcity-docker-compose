@@ -1,4 +1,4 @@
-# AI Agent Comparison: Generate a Docker Compose Environment for Teamcity
+# AI Coding Agent Comparison: Generate a Docker Compose Environment for Teamcity
 
 Testing out AI agents and how they implement a docker compose project.
 
@@ -24,7 +24,13 @@ The current directory contains the file `@docker-run.sh` with commands for runni
 > Use the following field to easily copy the prompt.
 
 ```text
-The current directory contains the file @docker-run.sh with commands for running a teamcity image.  Use the run commands to create a docker compose configuration.  For volumes, add directories in the CWD under `./volumes`.  In the compose configuration, add a postgresql database on the same network as the teamcity container.  use `teamcity` for the default username, password, and database name.  Add a Makefile to the project with targets for `up` to start the compose stack in detached mode; `down` to stop the compose stack; `logs` to view the stacks logs; and `x_nuke` to run `down` and then remove all images and volumes.
+The current directory contains the file @docker-run.sh with commands for running a teamcity image.
+Use the run commands to create a docker compose configuration.  For volumes, add directories in the
+CWD under `./volumes`.  In the compose configuration, add a postgresql database on the same network
+ as the teamcity container.  use `teamcity` for the default username, password, and database name.
+Add a Makefile to the project with targets for `up` to start the compose stack in detached mode;
+`down` to stop the compose stack; `logs` to view the stacks logs; and `x_nuke` to run `down` and
+then remove all images and volumes.
 ```
 
 ## Google Gemini CLI
@@ -46,9 +52,7 @@ The current directory contains the file @docker-run.sh with commands for running
 - Documentation was added in a markdown file
 - When the stack was started, it was revealed that the compose configuration used a deprecated attribute, `version`:
 
-  ```text
-  WARN[0000] /tmp/TMP_DIRS/2025-06-25/teamcity-docker-compose/cursor/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
-  ```
+  > WARN[0000] /tmp/TMP_DIRS/2025-06-25/teamcity-docker-compose/cursor/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
 
   This setting was noted and manually removed from the configuration to minimize notificaitons down the road.
 
@@ -56,11 +60,9 @@ The current directory contains the file @docker-run.sh with commands for running
 
   From the web:
 
-  ```text
-  TeamCity uses environment variables to configure its database connection and other settings. Key variables include TEAMCITY_DB_URL, TEAMCITY_DB_USER, and TEAMCITY_DB_PASSWORD for database connection details. These variables, along with others, can be set in the TeamCity server's environment or within specific build configurations.
-  ```
+  > TeamCity uses environment variables to configure its database connection and other settings. Key variables include TEAMCITY_DB_URL, TEAMCITY_DB_USER, and TEAMCITY_DB_PASSWORD for database connection details. These variables, along with others, can be set in the TeamCity server's environment or within specific build configurations.
 
-  And implemented in the compose configuration with a bit of halucenation:
+  And implemented in the compose configuration with a bit of halucenation.  Specifically, it did not use `TEAMCITY_DB_URL` but added `TEAMCITY_DB_TYPE`, `TEAMCITY_DB_HOST`, and `TEAMCITY_DB_PORT` which are not mentioned in the documentation.
 
   ```yaml
       environment:
